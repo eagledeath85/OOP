@@ -1,12 +1,13 @@
-
 # ------------ IMPLEMENTATION DE LA CLASSE ------------
+
 class Person:
+    # Les variables de classe sont appliquees a toutes les instances crees
+    # Elles sont declarees avant le constructeur
+    HUMAN_BEING = "Human (Homo Sapiens)"
 
     # Constructeur de la classe Person
     # On cree toujours les variables d'instance au niveau du constructeur
     def __init__(self, name: str = "", age: int = 0):
-        # Le mot-cle self se rapporte a l'instance creee.
-        # Toutes les variables d'instance sont appelees par la syntaxe self.<nom_variable_instance>
         self.name = name        # cree une variable d'instance nom (une variable par instance)
         self.age = age
         if name == "":
@@ -29,30 +30,19 @@ class Person:
     def ask_user_name(self):
         self.name = input("What is your name? ")
 
-
-    def other_function():   # static method
-        print("Other Function")
-
-
-# ------------ APPEL DE LA CLASSE ------------
-# person1 = Person("jack", 15)    # creation d'une personne
-# person2 = Person("john", 43)    # creation d'une personne
-
-persons_tuple = [Person("Jean", 26), Person("Paul", 12), Person()]
-
-for person in persons_tuple:
-    person.self_presentation()
-
-# person3 = Person()
-person4 = persons_tuple.append(Person(age=46))
-
-# person1.self_presentation() # methode d'instance
-# person3.self_presentation()
-# person4.self_presentation()
-# if person1.is_major():
-#     print(f"{person1.name} is major")
-# else:
-#     print(f"{person1.name} is minor")
+    def display_info_human_being(): # fonction statique
+        # Pour appeler une variable de classe dans une fonction on utilise la syntaxe
+        # <class_name>.<variable_de_classe>
+        print(f"Human Being info: {Person.HUMAN_BEING}")
 
 
-# Person.other_function()     # methode de classe (statique)
+# ------------ UTILISATION ------------
+persons_list = [
+                Person("Jean", 26),
+                Person("Paul", 12),
+                Person("Zoe", 21),
+                ]
+
+for person in persons_list:
+    person.self_presentation()          # Appel de fonction d'instance sur l'instance person
+    Person.display_info_human_being()   # Appel de fonction statique sur la classe Person
