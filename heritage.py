@@ -8,7 +8,7 @@ class HumanBeing:   # Classe Parent
 
 
 class Cat(HumanBeing):   # Classe Enfant
-    # La variable de classe de la classe parent est ecrasee
+    # La variable de classe de la classe parent est ecrasee (overridden)
     HUMAN_BEING = "Cat (mamal cat)"
 
     # La methode display_info_human_being est heritee de la classe parent
