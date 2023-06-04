@@ -60,6 +60,8 @@ print(f"Discounted price after tax: {discounted_bread.price_after_tax}")
 
 
 #################### OVERLOADING __truediv__, __floordiv__, __len__, methods ####################
+#################### OVERLOADING __eq__, __neq__, __gt__ methods ####################
+#################### OVERLOADING __ge__, __lt__, __le__ methods ####################
 
 class Line:
     def __init__(self, point1, point2):  # point1 and point2 are tuples containing coordinates
@@ -84,18 +86,84 @@ class Line:
         distance = math.sqrt(distance_x + distance_y)
         return round(distance)  # round the distance because len method must return an integer (python rules)
 
+    # __eq__ allows to check equality between objects
     def __eq__(self, other):
+        # We first check if the 2 objects are of the same type
         if not isinstance(other, Line):
             return False
+        # If yes, then we check whether their attributes are identical
         return self.point1 == other.point1 and self.point2 == other.point2
 
+    # __eq__ checks the non-equality between objects
     def __ne__(self, other):
         return not self.__eq__(other)
+
+    # __gt__ evaluates "strictly greater than" and returns True or False
+    def __gt__(self, other):
+        return len(self) > len(other)
+
+    # __gte__ evaluates "greater than or equal to" and returns True or False
+    def __ge__(self, other):
+        return len(self) >= len(other)
+
+    # __gt__ evaluates "strictly smaller than" and returns True or False
+    def __lt__(self, other):
+        return len(self) < len(other)
+
+    # __gte__ evaluates "smaller than or equal to" and returns True or False
+    def __le__(self, other):
+        return len(self) <= len(other)
 
 
 line1 = Line((10, 5), (20, 9))
 newline = line1 // 2
 print(newline.point1, newline.point2)
 print(len(line1))
-line2 = Line((10, 5), (20, 10))
+line2 = Line((10, 5), (20, 9))
 print(line1 == line2)
+
+
+#################### OVERLOADING __eq__, __neq__, __gt__ methods ####################
+
+class BookPage:
+    def __init__(self, text, page_number):
+        self.text = text
+        self.page_number = page_number
+
+    def __len__(self):
+        return len(self.text)
+
+    # returns a human-readable representation of the object, meaning
+    # the text itself instead of the string representation of the instance at its memory location
+    def __str__(self):
+        return self.text
+
+    # __repr__ is more for debugging purpose.
+    # It gives all the important information about the object we need when debugging or looking at the internal representation of it
+    def __repr__(self):
+        return self.__str__()
+
+class Book:
+    def __init__(self, title, author, pages, id_number):
+        self.title = title
+        self.author = author
+        self.pages = pages
+        self.id_number = id_number
+
+    def __len__(self):
+        return len(self.pages)
+
+    def __str__(self):
+        return f"Book(title = {self.title}, author = {self.author}, pages = {self.pages}, id_number = {self.id_number}"
+
+    def __repr__(self):
+        return f"Book(id_number={self.id_number})"
+
+
+book_page1 = BookPage("Page 1", 1)
+book_page2 = BookPage("Page 2", 2)
+book = Book("My First Book", "John Doe", [str(book_page1), str(book_page2)], 1)
+print(len(book))
+print(book_page1)
+print(book)
+print(book.__repr__())
