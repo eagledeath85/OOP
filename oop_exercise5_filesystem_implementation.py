@@ -3,9 +3,9 @@ class FileSystem:
         self.root = Directory("/")
 
     def create_directory(self, path):
-        before_last_node, directoy_name = self._extract_from_path(path)
+        before_last_node, directory_name = self._extract_from_path(path)
 
-        new_directory = Directory(directoy_name)
+        new_directory = Directory(directory_name)
         before_last_node.add_node(new_directory)
 
     def create_file(self, path, contents):
